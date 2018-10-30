@@ -59,10 +59,12 @@ def create_huff_tree(char_freq):
             while j < len(node_list) and comes_before(node_list[j], newNode):
                 j +=1
             node_list.insert(j, newNode)
+    if len(node_list) == 0:
+        return None
     #for k in range(len(node_list)):
         #print(node_list[k].freq)
     
-    while len(node_list) != 1:
+    while len(node_list) > 1:
         interNode = combine(node_list[0],node_list[1])
         del node_list[0]
         del node_list[0]
@@ -79,6 +81,8 @@ def create_code(node):
     return _create_code(node,'',['']*256)
 
 def _create_code(node, huffcode, code_list):
+    if node == None:
+        return []
     if node.left != None and node.right != None:
         _create_code(node.left, huffcode + '0', code_list)
         _create_code(node.right, huffcode + '1', code_list)
@@ -104,7 +108,8 @@ def huffman_encode(in_file, out_file):
     header = create_header(cnt_freq(in_file))
 
     with open(in_file, 'r') as INFILE, open(out_file, 'w') as OUTFILE:
-        OUTFILE.write(header + "\n")
+        if header != '':
+            OUTFILE.write(header + "\n")
         for line in INFILE:
             for ch in line:
                 OUTFILE.write(code_list[ord(ch)])
