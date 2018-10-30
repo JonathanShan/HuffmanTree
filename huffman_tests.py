@@ -39,6 +39,22 @@ class TestList(unittest.TestCase):
         err = subprocess.call("diff -wb file1_out.txt file1_soln.txt", shell = True)
         self.assertEqual(err, 0)
 
+    def test_02_textfile(self):
+        huffman_encode("declaration.txt", "declaration_out.txt")
+        # capture errors by running 'diff' on your encoded file with a *known* solution file
+        err = subprocess.call("diff -wb declaration_out.txt declaration_soln.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_03_textfile(self):
+        huffman_encode("multiline.txt", "multiline_out.txt")
+        # capture errors by running 'diff' on your encoded file with a *known* solution file
+        err = subprocess.call("diff -wb multiline_out.txt multiline_soln.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_file_missing(self):
+        self.assertRaises(FileNotFoundError, huffman_encode, "file1234.txt", "file1_134.txt")
+
+
 
 if __name__ == '__main__': 
    unittest.main()

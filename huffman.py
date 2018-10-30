@@ -30,12 +30,8 @@ def combine(a, b):
         nnchar = a.char
     else:
         nnchar = b.char
-    if comes_before(a,b):
-        leftnode = a
-        rightnode = b
-    else:
-        leftnode = b
-        rightnode = a
+    leftnode = a
+    rightnode = b
     newNode = HuffmanNode(nnchar, a.freq+b.freq)
     newNode.set_left(leftnode)
     newNode.set_right(rightnode)
@@ -63,8 +59,8 @@ def create_huff_tree(char_freq):
             while j < len(node_list) and comes_before(node_list[j], newNode):
                 j +=1
             node_list.insert(j, newNode)
-    for k in range(len(node_list)):
-        print(node_list[k].freq)
+    #for k in range(len(node_list)):
+        #print(node_list[k].freq)
     
     while len(node_list) != 1:
         interNode = combine(node_list[0],node_list[1])
@@ -97,20 +93,18 @@ def create_header(freqs):
     for i in range(len(freqs)):
         if freqs[i] != 0:
             returnstring = returnstring + " " + str(i) + " "  + str(freqs[i])
-    print(returnstring[1:])
+    #print(returnstring[1:])
     return returnstring[1:]
 
 def huffman_encode(in_file, out_file):
     """Takes inout file name and output file name as parameters
     Uses the Huffman coding process on the text from the input file and writes encoded text to output file
-    Take not of special cases - empty file and file with only one unique character"""
+    Take note of special cases - empty file and file with only one unique character"""
     code_list = create_code(create_huff_tree(cnt_freq(in_file)))
     header = create_header(cnt_freq(in_file))
+
     with open(in_file, 'r') as INFILE, open(out_file, 'w') as OUTFILE:
-        OUTFILE.write(header)
+        OUTFILE.write(header + "\n")
         for line in INFILE:
             for ch in line:
                 OUTFILE.write(code_list[ord(ch)])
-
-#create_huff_tree(cnt_freq("file2.txt"))
-create_code(create_huff_tree(cnt_freq("file2.txt")))
