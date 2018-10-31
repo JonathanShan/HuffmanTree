@@ -70,6 +70,10 @@ class TestList(unittest.TestCase):
         freqlist = cnt_freq("single.txt")
         self.assertEqual(create_header(freqlist), "112 93")
 
+    def test_create_header4(self):
+        freqlist = cnt_freq("file3.txt")
+        self.assertEqual(create_header(freqlist), "10 5 32 1 33 1 37 1 39 1 40 1 41 2 42 2 43 1 44 2 46 1 47 1 50 1 52 1 59 1 64 1 91 1 92 1 93 1 95 1 96 1 97 5 98 2 101 2 102 3 103 5 104 2 105 3 106 1 107 2 108 3 109 2 110 5 111 2 112 1 113 1 114 5 115 2 116 2 117 1 119 4 121 1 122 1 126 1")
+
     def test_create_code(self):
         freqlist = cnt_freq("file2.txt")
         hufftree = create_huff_tree(freqlist)
@@ -84,7 +88,7 @@ class TestList(unittest.TestCase):
         codes = create_code(hufftree)
         self.assertEqual(codes[ord('p')], '')
 
-    def test_create_code3(self):
+    def test_create_code2(self):
         freqlist = cnt_freq("file1.txt")
         hufftree = create_huff_tree(freqlist)
         codes = create_code(hufftree)
@@ -94,8 +98,20 @@ class TestList(unittest.TestCase):
         self.assertEqual(codes[ord('c')], '101')
         self.assertEqual(codes[ord('d')], '100')
 
+    def test_create_code3(self):
+        freqlist = cnt_freq("file3.txt")
+        hufftree = create_huff_tree(freqlist)
+        codes = create_code(hufftree)
+        self.assertEqual(codes[ord('@')], '1111001')
+        self.assertEqual(codes[ord('~')], '100001')
+        self.assertEqual(codes[ord('.')], '1110100')
+        self.assertEqual(codes[ord('%')], '1101010')
+        self.assertEqual(codes[ord(' ')], '1101000')
+        self.assertEqual(codes[ord('g')], '1001')
+
     def test_file_missing(self):
         self.assertRaises(FileNotFoundError, huffman_encode, "file1234.txt", "file1_134.txt")
+
 
   
 

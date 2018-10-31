@@ -39,5 +39,12 @@ class TestList(unittest.TestCase):
         err = subprocess.call("diff -wb file2_out.txt file2_soln.txt", shell = True)
         self.assertEqual(err, 0)
 
+    def test_07_textfile(self):
+        huffman_encode("file3.txt", "file3_out.txt")
+        # capture errors by running 'diff' on your encoded file with a *known* solution file
+        err = subprocess.call("diff -wb file3_out.txt file3_soln.txt", shell = True)
+        self.assertEqual(err, 0)
+
+
 if __name__ == '__main__': 
    unittest.main()
