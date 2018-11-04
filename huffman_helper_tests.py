@@ -45,6 +45,41 @@ class TestList(unittest.TestCase):
         err = subprocess.call("diff -wb file3_out.txt file3_soln.txt", shell = True)
         self.assertEqual(err, 0)
 
+    def test_decode_1(self):
+        huffman_decode("file1_soln.txt","file1_decode.txt")
+        err = subprocess.call("diff -wb file1.txt file1_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_2(self):
+        huffman_decode("file2_soln.txt","file2_decode.txt")
+        err = subprocess.call("diff -wb file2.txt file2_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_3(self):
+        huffman_decode("file3_soln.txt","file3_decode.txt")
+        err = subprocess.call("diff -wb file3.txt file3_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_4(self):
+        huffman_decode("empty.txt","empty_decode.txt")
+        err = subprocess.call("diff -wb empty.txt empty_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_5(self):
+        huffman_decode("single_soln.txt","single_decode.txt")
+        err = subprocess.call("diff -wb single.txt single_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_6(self):
+        huffman_decode("multiline_soln.txt","multiline_decode.txt")
+        err = subprocess.call("diff -wb multiline.txt multiline_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_7(self):
+        huffman_decode("declaration_soln.txt","declaration_decode.txt")
+        err = subprocess.call("diff -wb declaration.txt declaration_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
 
 if __name__ == '__main__': 
    unittest.main()

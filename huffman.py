@@ -113,3 +113,42 @@ def huffman_encode(in_file, out_file):
         for line in INFILE:
             for ch in line:
                 OUTFILE.write(code_list[ord(ch)])
+
+def parse_header(header_string):
+    char_list = []
+    freq_list= []
+    return_list = [0]*256
+    head_list = header_string.split(" ")
+    if head_list[0] == "":
+        return ""
+    for i in range(len(head_list)):
+        if i % 2 == 0:
+            char_list.append(head_list[i])
+        else:
+            freq_list.append(head_list[i])
+    for j in range(len(char_list)):
+        return_list[int(char_list[j])] = int(freq_list[j])
+    return return_list
+
+def huffman_decode(encoded_file, decode_file):
+    with open(encoded_file, "r") as encode, open(decode_file, "w") as decode:
+        first_line = encode.readline()
+        decode_header = parse_header(first_line)
+        root = create_huff_tree(decode_header)
+        node = root
+        multiline = False
+        for line in encode:
+            multiline = True
+            for ch in line:
+                if ch == '0':
+                    node = node.left
+                elif ch == '1':
+                    node = node.right
+                if node.left == None and node.right == None:
+                    decode.write(chr(node.char))
+                    node = root
+        if decode_header != "" and not multiline:
+            decode.write(chr(node.char)*node.freq)
+
+
+huffman_decode("single_soln.txt","single_decode.txt")

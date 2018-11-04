@@ -112,6 +112,8 @@ class TestList(unittest.TestCase):
     def test_file_missing(self):
         self.assertRaises(FileNotFoundError, huffman_encode, "file1234.txt", "file1_134.txt")
 
+    def test_file_missing1(self):
+        self.assertRaises(FileNotFoundError, huffman_decode, "file1234.txt", "file1_134.txt")
 
   
 
