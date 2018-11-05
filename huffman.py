@@ -114,6 +114,7 @@ def huffman_encode(in_file, out_file):
             for ch in line:
                 OUTFILE.write(code_list[ord(ch)])
 
+
 def parse_header(header_string):
     char_list = []
     freq_list= []

@@ -45,6 +45,18 @@ class TestList(unittest.TestCase):
         err = subprocess.call("diff -wb file3_out.txt file3_soln.txt", shell = True)
         self.assertEqual(err, 0)
 
+    def test_08_textfile(self):
+        huffman_encode("different.txt", "different_out.txt")
+        # capture errors by running 'diff' on your encoded file with a *known* solution file
+        err = subprocess.call("diff -wb different_out.txt different_soln.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_09_textfile(self):
+        huffman_encode("alpha.txt", "alpha_out.txt")
+        # capture errors by running 'diff' on your encoded file with a *known* solution file
+        err = subprocess.call("diff -wb alpha_out.txt alpha_soln.txt", shell = True)
+        self.assertEqual(err, 0)
+
     def test_decode_1(self):
         huffman_decode("file1_soln.txt","file1_decode.txt")
         err = subprocess.call("diff -wb file1.txt file1_decode.txt", shell = True)
@@ -78,6 +90,16 @@ class TestList(unittest.TestCase):
     def test_decode_7(self):
         huffman_decode("declaration_soln.txt","declaration_decode.txt")
         err = subprocess.call("diff -wb declaration.txt declaration_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_8(self):
+        huffman_decode("different_soln.txt","different_decode.txt")
+        err = subprocess.call("diff -wb different.txt different_decode.txt", shell = True)
+        self.assertEqual(err, 0)
+
+    def test_decode_9(self):
+        huffman_decode("alpha_soln.txt","alpha_decode.txt")
+        err = subprocess.call("diff -wb alpha.txt alpha_decode.txt", shell = True)
         self.assertEqual(err, 0)
 
 
